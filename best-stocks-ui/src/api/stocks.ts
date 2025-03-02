@@ -1,13 +1,10 @@
-import axios from "axios";
-
-const API_URL = "http://localhost:8080";
-
-export const fetchStocks = async () => {
-    try {
-        const response = await axios.get(`${API_URL}/stocks`);
-        return response.data;
-    } catch (error) {
-        console.error("Error fetching stocks:", error);
-        return [];
+export async function fetchStocks() {
+    const response = await fetch("http://localhost:8080/stocks");
+    
+    if (!response.ok) {
+      throw new Error(`Server error: ${response.statusText}`);
     }
-};
+    
+    
+    return await response.json();
+  }

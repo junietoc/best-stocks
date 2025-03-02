@@ -33,6 +33,44 @@ func InitDB() {
 	}
 
 	fmt.Println("Connected to CockroachDB successfully!")
-
 	DB = database
+}
+
+type Stock struct {
+	ID        string `json:"id"`
+	Ticker    string `json:"ticker"`
+	Company   string `json:"company"`
+	Action    string `json:"action"`
+	Brokerage string `json:"brokerage"`
+	TargetTo  string `json:"target_to"`
+}
+
+func GetStocks() ([]Stock, error) {
+	rows, err := DB.Query(`
+        SELECT id, ticker, company, action, brokerage, target_to
+        FROM stocks
+    `)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+
+	var stocks []Stock
+	for rows.Next() {
+		var s Stock
+		if err := rows.Scan(&s.ID, &s.Ticker, &s.Company, &s.Action, &s.Brokerage, &s.TargetTo); err != nil {
+			return nil, err
+		}
+		stocks = append(stocks, s)
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	for i, s := range stocks {
+		if i >= 10 {
+			break
+		}
+		log.Println(s)
+	}
+	return stocks, nil
 }
