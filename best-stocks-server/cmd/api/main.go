@@ -4,7 +4,8 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/junietoc/best-stocks-server/internal/db"
+	"best-stocks-server/internal/db"
+	"best-stocks-server/internal/stocks"
 
 	"github.com/gin-gonic/gin"
 )
@@ -14,8 +15,29 @@ func main() {
 
 	r := gin.Default()
 
+	r.GET("/fetch-and-save", func(c *gin.Context) {
+		items, err := stocks.FetchStockData()
+		if err != nil {
+			log.Println("Error fetching stock data:", err)
+			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+			return
+		}
+
+		err = stocks.SaveStockItems(db.DB, items)
+		if err != nil {
+			log.Println("Error saving stock data:", err)
+			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+			return
+		}
+
+		c.JSON(http.StatusOK, gin.H{
+			"message": "Stock data fetched and saved successfully!",
+			"count":   len(items),
+		})
+	})
+
 	r.GET("/stocks", func(c *gin.Context) {
-		c.JSON(http.StatusOK, gin.H{"message": "test"})
+		c.JSON(http.StatusOK, gin.H{"message": "Hello from /stocks"})
 	})
 
 	log.Println("server is running on port 8080")

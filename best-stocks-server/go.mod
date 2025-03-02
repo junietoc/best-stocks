@@ -1,4 +1,4 @@
-module github.com/junietoc/best-stocks-server
+module best-stocks-server
 
 go 1.24.0
 
