@@ -1,0 +1,37 @@
+.DS_Store
+
+# Server
+best-stocks-server/.env
+
+# UI
+
+# Logs
+best-stocks-ui/logs
+best-stocks-ui/*.log
+best-stocks-ui/npm-debug.log*
+best-stocks-ui/yarn-debug.log*
+best-stocks-ui/yarn-error.log*
+best-stocks-ui/pnpm-debug.log*
+best-stocks-ui/lerna-debug.log*
+
+best-stocks-ui/node_modules
+best-stocks-ui/.DS_Store
+best-stocks-ui/dist
+best-stocks-ui/dist-ssr
+best-stocks-ui/coverage
+best-stocks-ui/*.local
+
+best-stocks-ui/cypress/videos/
+best-stocks-ui/cypress/screenshots/
+
+# Editor directories and files
+best-stocks-ui/.vscode/*
+!best-stocks-ui/.vscode/extensions.json
+best-stocks-ui/.idea
+best-stocks-ui/*.suo
+best-stocks-ui/*.ntvs*
+best-stocks-ui/*.njsproj
+best-stocks-ui/*.sln
+best-stocks-ui/*.sw?
+
+best-stocks-ui/*.tsbuildinfo
