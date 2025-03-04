@@ -3,6 +3,6 @@
 </script>
 
 <template>
-  <main class="max-w-3xl mx-auto p-4">
+  <main class="w-full min-h-screen p-4 bg-white">
   </main>
 </template>
